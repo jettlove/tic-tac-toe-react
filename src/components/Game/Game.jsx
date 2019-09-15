@@ -18,6 +18,8 @@ const Game = () => {
   const [ squares, setSquares ] = useState(Array(9).fill(null));
   const [ isX, setIsX ] = useState(true);
 
+  const restartGame = () => setSquares({ squares: null});
+
   const renderSquare = index => {
     return <Square
       value={squares[index]}
@@ -44,9 +46,10 @@ const Game = () => {
     ? `Winner: ${gameWinner}`
     : `Next player: ${isX ? 'X' : 'O'}`;
 
+
   return (
     <>
-      <GameInfo status={status} />
+      <GameInfo status={status} restartGame={restartGame} />
       <GameField renderSquare={renderSquare} />
     </>
   )

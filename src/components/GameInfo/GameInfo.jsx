@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { GameInfoContainer, RestartButton, Status } from './styled';
 
-const GameInfo = () => {
+const GameInfo = ({ status, restartGame }) => {
   return (
-    <div>
-      
-    </div>
+    <GameInfoContainer>
+      <RestartButton onClick={restartGame}>Restart</RestartButton>
+      <Status>{status}</Status>
+    </GameInfoContainer>
   )
 }
 

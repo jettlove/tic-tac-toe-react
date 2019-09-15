@@ -10,8 +10,13 @@ export const Button = styled.button`
   font-size: 62px;
   font-weight: bold;
   text-align: center;
+  opacity: 0.7;
 
   &:focus {
     outline: none;
+  }
+  &:hover {
+    opacity: 1;
+    transition: opacity 0.5s;
   }
 `;

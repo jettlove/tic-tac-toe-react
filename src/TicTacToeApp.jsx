@@ -1,8 +1,6 @@
 import React from 'react'
 import Game from './components/Game'
 
-const TicTacToeApp = () => {
-  return <Game />
-}
+const TicTacToeApp = () => <Game />
 
 export default TicTacToeApp

@@ -18,18 +18,23 @@ const Game = () => {
   const [ squares, setSquares ] = useState(Array(9).fill(null));
   const [ isX, setIsX ] = useState(true);
 
-  const restartGame = () => setSquares({ squares: null});
+  const restartGame = () => setSquares(Array(9).fill(null));
+
+  const handleSquare = index => {
+    if (squares[index] !== null || gameWinner !== null) {
+      return;
+    }
+    squares[index] = isX ? 'X' : 'O';
+    setSquares(prevSquares => ({ ...prevSquares, squares}));
+    setIsX(!isX);
+  };
 
   const renderSquare = index => {
     return <Square
       value={squares[index]}
-      onClick={() => {
-        squares[index] = isX ? 'X' : 'O';
-        setSquares(prevSquares => ({ ...prevSquares, squares}));
-        setIsX(!isX);
-      }}
+      onClick={() => handleSquare(index)}
     />;
-  }
+  };
 
   const calculateWinner = squares => {
     for (let i = 0; i < linesToWin.length; i++) {
@@ -39,17 +44,35 @@ const Game = () => {
       }
     }
     return null;
-  }
+  };
+
+  const calculateDraw = squares => {
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i] !== null) {
+        return true;
+      }
+      return false;
+    }
+  };
 
   const gameWinner = calculateWinner(squares);
-  const status = gameWinner
-    ? `Winner: ${gameWinner}`
-    : `Next player: ${isX ? 'X' : 'O'}`;
+  const gameDraw = calculateDraw(squares);
 
+  const status = () => {
+    if (gameWinner) {
+      return `The winner is: ${gameWinner}`;
+    } else if (gameDraw) {
+      return "It's draw!";
+    } else {
+      return `Next player: ${(isX ? "X" : "O")}`;
+    }
+  };
+
+  const gameStatus = status();
 
   return (
     <>
-      <GameInfo status={status} restartGame={restartGame} />
+      <GameInfo status={gameStatus} restartGame={restartGame} />
       <GameField renderSquare={renderSquare} />
     </>
   )

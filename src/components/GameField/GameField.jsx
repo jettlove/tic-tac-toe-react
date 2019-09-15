@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import Square from '../Square';
+import Square from './Square';
 import { FieldContainer, GameRow } from './styled';
 
 const GameField = () => {
   const [ squares, setSquares ] = useState(Array(9).fill(null));
+  const [ isX, setIsX ] = useState(true);
 
   const renderSquare = index => {
     return <Square
       value={squares[index]}
       onClick={() => {
-        squares[index] = 'X';
+        squares[index] = isX ? 'X' : 'O';
         setSquares(prevSquares => ({ ...prevSquares, squares}));
+        setIsX(!isX);
       }}
     />;
   }
@@ -36,4 +38,4 @@ const GameField = () => {
   );
 }
 
-export default GameField
+export default GameField;
